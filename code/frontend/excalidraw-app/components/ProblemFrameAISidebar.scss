@@ -1,0 +1,499 @@
+.pf-ai-sidebar {
+  // 侧栏是画布的兄弟节点，不在 .excalidraw 作用域内，无法继承面板主题变量，
+  // 因此在此自带一套亮色配色兜底（值取自 packages/excalidraw/css/theme.scss）。
+  --default-bg-color: #ffffff;
+  --color-primary: #6965db;
+  --color-border: #e3e3e8;
+  --color-surface-low: #ececf4;
+  --color-surface-mid: #f2f2f7;
+  --color-surface-lowest: #ffffff;
+  --color-text-primary: #1b1b1f;
+  --color-text-secondary: #6f6f78;
+  --color-danger: #db6965;
+
+  background: var(--default-bg-color, #fff);
+  border-left: 1px solid var(--color-border, #e3e3e8);
+  box-sizing: border-box;
+  display: block;
+  flex: 0 0 auto;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  width: min(440px, 38vw);
+}
+
+.pf-ai-sidebar.pf-ai-sidebar--dark {
+  --default-bg-color: #121212;
+  --color-primary: #a8a5ff;
+  --color-border: #3a3a46;
+  --color-surface-low: hsl(240, 8%, 15%);
+  --color-surface-mid: hsl(240, 6%, 10%);
+  --color-surface-lowest: hsl(0, 0%, 7%);
+  --color-text-primary: #e3e3e8;
+  --color-text-secondary: #a8a8b3;
+  --color-danger: #ffa8a5;
+}
+
+.pf-ai-sidebar--collapsed {
+  width: 52px;
+}
+
+.pf-ai-panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  width: min(440px, 38vw);
+}
+
+.pf-ai-sidebar--collapsed .pf-ai-panel {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pf-ai-sidebar-rail-toggle {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  left: 50%;
+  opacity: 0;
+  padding: 6px;
+  pointer-events: none;
+  position: absolute;
+  top: 12px;
+  transform: translateX(-50%);
+  transition: opacity 0.2s ease, background 0.2s ease, color 0.2s ease;
+  z-index: 2;
+
+  &:hover {
+    background: var(--color-surface-mid);
+    color: var(--color-text-primary);
+  }
+}
+
+.pf-ai-sidebar--collapsed .pf-ai-sidebar-rail-toggle {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pf-ai-sidebar-rail-label {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  left: 50%;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  position: absolute;
+  top: 58px;
+  transform: translateX(-50%);
+  transition: opacity 0.2s ease;
+  user-select: none;
+  writing-mode: vertical-rl;
+  z-index: 2;
+}
+
+.pf-ai-sidebar--collapsed .pf-ai-sidebar-rail-label {
+  opacity: 1;
+}
+
+.pf-ai-chat {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+
+  > .copilotKitChat,
+  [data-testid="copilot-chat"] {
+    height: 100%;
+  }
+}
+
+.pf-ai-stage {
+  background: var(--color-surface-low);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px;
+
+  > .pf-ai-stage__title {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+
+  span {
+    color: var(--color-text-secondary);
+    font-size: 11px;
+  }
+
+  strong {
+    font-size: 14px;
+  }
+}
+
+.pf-ai-sidebar-toggle {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  flex: none;
+  justify-content: center;
+  padding: 6px;
+
+  &:hover {
+    background: var(--color-surface-mid);
+    color: var(--color-text-primary);
+  }
+}
+
+@media (max-width: 900px) {
+  .pf-ai-sidebar {
+    bottom: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: min(92vw, 440px);
+    z-index: 20;
+  }
+
+  .pf-ai-panel {
+    width: min(92vw, 440px);
+  }
+
+  .pf-ai-sidebar.pf-ai-sidebar--collapsed {
+    width: 52px;
+  }
+}
+
+.pf-ai-card {
+  background: var(--color-surface-lowest);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin: 8px 0;
+  padding: 12px;
+  width: 100%;
+  overflow-wrap: anywhere;
+
+  h3 {
+    font-size: 15px;
+    margin: 4px 0 10px;
+  }
+
+  p {
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    margin: 5px 0 10px;
+  }
+}
+
+.pf-ai-card__eyebrow {
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.pf-ai-card--complete {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+.pf-ai-question {
+  border-top: 1px solid var(--color-border);
+  padding: 10px 0;
+
+  strong {
+    display: block;
+    font-size: 13px;
+  }
+
+  textarea {
+    border: 1px solid var(--color-border);
+    border-radius: 7px;
+    box-sizing: border-box;
+    font: inherit;
+    padding: 8px;
+    resize: vertical;
+    width: 100%;
+  }
+}
+
+.pf-ai-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  button {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: 7px;
+    cursor: pointer;
+    padding: 6px 9px;
+
+    &.is-selected {
+      background: var(--color-primary);
+      color: white;
+    }
+  }
+}
+
+.pf-ai-primary {
+  background: var(--color-primary);
+  border: 0;
+  border-radius: 7px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 9px 12px;
+  width: 100%;
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+}
+
+.pf-ai-secondary {
+  background: transparent;
+  border: 1px dashed var(--color-primary);
+  border-radius: 7px;
+  color: var(--color-primary);
+  cursor: pointer;
+  margin: 6px 0 10px;
+  padding: 8px 12px;
+  width: 100%;
+}
+
+.pf-ai-domain-row {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  box-sizing: border-box;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  padding: 9px 0;
+  text-align: left;
+  width: 100%;
+
+  button,
+  > span {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    padding: 0;
+    text-align: left;
+  }
+
+  strong {
+    font-size: 13px;
+  }
+
+  small {
+    color: var(--color-text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  em,
+  select {
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    flex: none;
+    font-size: 11px;
+    font-style: normal;
+    max-width: 92px;
+    padding: 5px;
+  }
+
+  em {
+    box-sizing: border-box;
+    width: 80px;
+  }
+}
+
+.pf-ai-domain-row--editable {
+  align-items: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+
+  .pf-ai-domain-fields {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  > em,
+  > select {
+    grid-column: 2;
+    grid-row: 1;
+    max-width: 140px;
+  }
+
+  .pf-ai-domain-row__focus,
+  .pf-ai-domain-row__remove {
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    align-items: center;
+    display: inline-flex;
+    flex: none;
+    font-size: 11px;
+    grid-row: 1;
+    height: 28px;
+    justify-content: center;
+    padding: 0;
+    width: 28px;
+  }
+
+  .pf-ai-domain-row__focus {
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  .pf-ai-domain-row__remove {
+    color: var(--color-danger);
+    grid-column: 3;
+  }
+}
+
+.pf-ai-domain-fields {
+  display: grid;
+  flex: 1;
+  gap: 5px;
+  min-width: 0;
+
+  label {
+    display: grid;
+    gap: 3px;
+  }
+
+  label > span {
+    color: var(--color-text-secondary);
+    font-size: 10px;
+  }
+
+  input,
+  textarea {
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font: inherit;
+    font-size: 13px;
+    padding: 5px 6px;
+    resize: vertical;
+    width: 100%;
+  }
+
+  input {
+    font-weight: 600;
+  }
+}
+
+.pf-ai-interface {
+  border-top: 1px solid var(--color-border);
+  display: grid;
+  gap: 8px;
+  padding: 10px 0;
+
+  label {
+    color: var(--color-text-secondary);
+    display: grid;
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  textarea {
+    border: 1px solid var(--color-border);
+    border-radius: 7px;
+    box-sizing: border-box;
+    font: inherit;
+    padding: 7px;
+    resize: vertical;
+    width: 100%;
+  }
+}
+
+.pf-ai-requirement {
+  border-top: 1px solid var(--color-border);
+  display: grid;
+  gap: 8px;
+  padding: 10px 0;
+
+  label {
+    color: var(--color-text-secondary);
+    display: grid;
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  input,
+  select,
+  textarea {
+    border: 1px solid var(--color-border);
+    border-radius: 7px;
+    box-sizing: border-box;
+    font: inherit;
+    padding: 7px;
+    resize: vertical;
+    width: 100%;
+  }
+}
+
+.pf-ai-requirement__title {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  text-align: left;
+
+  small {
+    color: var(--color-text-secondary);
+  }
+}
+
+.pf-ai-requirement__remove {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  color: var(--color-danger);
+  cursor: pointer;
+  font-size: 11px;
+  justify-self: start;
+  padding: 6px 8px;
+}
+
+.pf-ai-interface__title {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  text-align: left;
+
+  small {
+    color: var(--color-text-secondary);
+  }
+}
