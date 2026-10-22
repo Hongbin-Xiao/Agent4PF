@@ -182,17 +182,6 @@ Measuring diagram correctness and comparing candidate LLMs are ongoing work.
 
 ---
 
-## 🔗 Related Tools
-
-Agent4PF targets the entry point of PF modeling. It emits a standard model that the following tools can refine or transform:
-
-- **Zoom4PF**: refines static and dynamic domain descriptions
-- **PF2UML**: collaborative requirements modeling and PF-to-UML transformation
-- **ME4PD**: multi-modal, dynamically extensible problem-frame construction
-- **NL2PD**: problem diagram generation from natural language
-
----
-
 ## 🗺️ Roadmap
 
 - Improve the agent's identification of PF elements and their relationships
