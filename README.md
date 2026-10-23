@@ -4,7 +4,7 @@
 
 Agent4PF turns a natural-language requirement description into a Jackson **Problem Frames (PF)** problem diagram through four reviewable steps. An LLM agent proposes structured candidate elements at each step. The analyst edits, rejects (with a comment), or confirms them, and **only confirmed elements enter the model**.
 
-> 🎬 **Demo video:** <https://youtu.be/XXXXXXXXXXX> (four-minute walkthrough)
+> 🎬 **Demo video:** <[Click here](https://www.youtube.com/watch?v=xIaZc6bPdlY)> (four-minute walkthrough)
 
 ---
 
