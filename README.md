@@ -21,23 +21,14 @@ Agent4PF turns a natural-language requirement description into a Jackson **Probl
 
 ## 🧭 Workflow
 
-```
-Natural-language requirements
-        │
-        ▼
-┌──────────────────────────────┐
-│ Step 1  System boundary      │  machine, external entities, interfaces
-├──────────────────────────────┤
-│ Step 2  Problem domains      │  causal / biddable / lexical
-├──────────────────────────────┤
-│ Step 3  Shared phenomena     │  name, domain pair, interaction type
-├──────────────────────────────┤
-│ Step 4  Requirement mapping  │  references and constraints
-└──────────────────────────────┘
-        │   (each step: LLM candidates → analyst edit / reject / confirm → merge)
-        ▼
-   PF problem diagram (JSON + image)
-```
+<img width="5649" height="1626" alt="new_01" src="https://github.com/user-attachments/assets/291487fd-1884-47df-a886-e0750f4993f6" />
+
+
+
+
+
+
+
 
 | Step | Input | Output |
 |------|-------|--------|
@@ -47,6 +38,13 @@ Natural-language requirements
 | 4. Requirement reference & constraint | Confirmed domains | Functional requirements linked to domains by *reference* or *constraint* |
 
 Every request carries the confirmed model as context. A later stage therefore never re-discovers what an earlier stage established.
+
+
+<img width="6656" height="4163" alt="工具图_01" src="https://github.com/user-attachments/assets/58768025-b82f-448c-8619-8e4bac190b84" />
+
+
+
+
 
 ---
 
